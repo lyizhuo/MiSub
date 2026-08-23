@@ -15,7 +15,8 @@ export function createUnifiedTemplateModel(input = {}) {
             skipCertVerify: Boolean(input.settings?.skipCertVerify),
             enableUdp: Boolean(input.settings?.enableUdp),
             customDnsOverride: input.settings?.customDnsOverride || '',
-            dnsMode: input.settings?.dnsMode || 'clean'
+            dnsMode: input.settings?.dnsMode || 'clean',
+            ipv6: input.settings?.ipv6 === true
         },
         extras: typeof input.extras === 'object' && input.extras !== null ? input.extras : {}
     };

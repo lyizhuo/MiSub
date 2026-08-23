@@ -86,11 +86,12 @@ export function renderClashYamlProfileTemplate(templateText, nodeList, options =
         ...config,
         'allow-lan': false,
         'bind-address': '127.0.0.1',
-        'ipv6': false,
+        'ipv6': options.ipv6 === true,
         'external-controller': '127.0.0.1:9090',
         dns: resolveSafeDnsConfig(config.dns, {
             mode: options.dnsMode,
-            proxyGroup: '🌐 DNS 出口'
+            proxyGroup: '🌐 DNS 出口',
+            ipv6: options.ipv6 === true
         }),
         proxies
     }, {
@@ -200,7 +201,8 @@ export class ProcessorService {
                     enableUdp: builtinOptions.enableUdp,
                     isMeta: builtinOptions.isMeta,
                     customDnsOverride: builtinOptions.customDnsOverride || '',
-                    dnsMode: builtinOptions.dnsMode || 'clean'
+                    dnsMode: builtinOptions.dnsMode || 'clean',
+                    ipv6: builtinOptions.ipv6 === true
                 };
 
                 switch (targetFormat) {

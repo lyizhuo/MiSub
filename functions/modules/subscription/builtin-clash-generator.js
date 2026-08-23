@@ -199,14 +199,15 @@ export function generateBuiltinClashConfig(nodeList, options = {}) {
         // 基础配置：安全默认值，不再依赖 KV 覆盖才能避免 DNS 递归。
         const dnsConfig = resolveSafeDnsConfig(options.customDnsOverride || '', {
             mode: options.dnsMode,
-            proxyGroup: DNS_PROXY_GROUP
+            proxyGroup: DNS_PROXY_GROUP,
+            ipv6: options.ipv6 === true
         });
 
         const config = {
             'mixed-port': 7890,
             'allow-lan': false,
             'bind-address': '127.0.0.1',
-            'ipv6': false,
+            'ipv6': options.ipv6 === true,
             'mode': 'rule',
             'log-level': 'info',
             'external-controller': '127.0.0.1:9090',

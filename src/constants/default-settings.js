@@ -130,6 +130,7 @@ prependGroupName: false
     },
     // 自定义公开页
     customDnsOverride: '',
+    ipv6: false,
     customPage: {
         enabled: false,
         type: 'html',

@@ -164,13 +164,14 @@ export function renderClashFromTemplateModel(model) {
         'socks-port': 7891,
         'allow-lan': false,
         'bind-address': '127.0.0.1',
-        'ipv6': false,
+        'ipv6': normalizedModel.settings?.ipv6 === true,
         'mode': 'rule',
         'log-level': 'info',
         'external-controller': '127.0.0.1:9090',
         'dns': resolveSafeDnsConfig(normalizedModel.settings?.customDnsOverride, {
             mode: normalizedModel.settings?.dnsMode,
-            proxyGroup: DNS_PROXY_GROUP
+            proxyGroup: DNS_PROXY_GROUP,
+            ipv6: normalizedModel.settings?.ipv6 === true
         }),
         'proxies': normalizedModel.proxies,
         'proxy-groups': normalizedModel.groups

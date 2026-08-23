@@ -471,6 +471,7 @@ export async function handleMisubRequest(context) {
     const urlUdp = url.searchParams.get('udp');     // true/false
     const urlTfo = url.searchParams.get('tfo');     // true/false
     const urlScv = url.searchParams.get('scv');     // true/false (skip-cert-verify)
+    const urlIpv6 = url.searchParams.get('ipv6');   // true/false（IPv6 解析开关，默认关闭）
     const urlList = url.searchParams.get('list') === 'true';
 
     const isBrowser = isBrowserAgent(userAgentHeader);
@@ -887,7 +888,8 @@ export async function handleMisubRequest(context) {
                     regionOverrides: Array.isArray(config.regionOverrides) ? config.regionOverrides : [],
                     isMeta: isMetaCore(userAgentHeader, url.searchParams),
                     customDnsOverride: config.customDnsOverride || '',
-                    dnsMode: url.searchParams.get('dns-mode') || url.searchParams.get('dnsMode') || config.dnsMode || 'clean'
+                    dnsMode: url.searchParams.get('dns-mode') || url.searchParams.get('dnsMode') || config.dnsMode || 'clean',
+                    ipv6: (urlIpv6 !== null && (urlIpv6 === 'true' || urlIpv6 === '1')) || config.ipv6 === true
                 };
                 const rendered = await ProcessorService.renderOutput({
                     targetFormat,
@@ -1027,7 +1029,8 @@ export async function handleMisubRequest(context) {
         regionOverrides: Array.isArray(config.regionOverrides) ? config.regionOverrides : [],
         isMeta: isMetaCore(userAgentHeader, url.searchParams),
         customDnsOverride: config.customDnsOverride || '',
-        dnsMode: url.searchParams.get('dns-mode') || url.searchParams.get('dnsMode') || config.dnsMode || 'clean'
+        dnsMode: url.searchParams.get('dns-mode') || url.searchParams.get('dnsMode') || config.dnsMode || 'clean',
+        ipv6: (urlIpv6 !== null && (urlIpv6 === 'true' || urlIpv6 === '1')) || config.ipv6 === true
     };
 
     const managedConfigUrl = buildManagedConfigUrl(request.url);

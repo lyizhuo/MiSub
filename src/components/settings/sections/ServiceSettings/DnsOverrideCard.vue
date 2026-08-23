@@ -21,6 +21,15 @@ const inputValue = computed({
   }
 });
 
+const ipv6Enabled = computed({
+  get() {
+    return props.settings.ipv6 === true;
+  },
+  set(value) {
+    props.settings.ipv6 = value;
+  }
+});
+
 const jsonError = ref('');
 
 function detectFormat(raw) {
@@ -78,6 +87,18 @@ const hasValue = computed(() => inputValue.value.trim().length > 0);
         {{ t('settings.dnsOverrideActive') }}
       </span>
     </div>
+
+    <label class="flex cursor-pointer items-center justify-between gap-4 rounded-lg border border-gray-200 px-4 py-3 transition-colors hover:border-teal-300 dark:border-gray-700 dark:hover:border-teal-500/50">
+      <span>
+        <span class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('settings.ipv6ToggleLabel') }}</span>
+        <span class="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">{{ t('settings.ipv6ToggleDesc') }}</span>
+      </span>
+      <input
+        v-model="ipv6Enabled"
+        type="checkbox"
+        class="h-5 w-5 shrink-0 cursor-pointer accent-teal-600"
+      />
+    </label>
 
     <div>
       <label class="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">

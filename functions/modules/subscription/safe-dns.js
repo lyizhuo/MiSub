@@ -211,7 +211,7 @@ export function resolveSafeDnsConfig(raw, options = {}) {
     });
 
     dns.enable = true;
-    dns.ipv6 = false;
+    dns.ipv6 = options.ipv6 === true;
     dns['enhanced-mode'] = 'fake-ip';
     dns['respect-rules'] = true;
     return dns;
