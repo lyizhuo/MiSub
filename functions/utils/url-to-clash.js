@@ -312,6 +312,13 @@ if (network === 'xhttp') {
             proxy.flow = params.get('flow');
         }
 
+        // VLESS encryption（如 mlkem768x25519plus 后量子加密，mihomo 专用字段）
+        // 缺失会导致要求 PQ 加密的服务端握手失败，因此仅在非 none 时透传
+        const vlessEncryption = params.get('encryption');
+        if (vlessEncryption && vlessEncryption !== 'none') {
+            proxy.encryption = vlessEncryption;
+        }
+
         // ALPN
         if (params.get('alpn')) {
             proxy.alpn = params.get('alpn').split(',');
