@@ -4,7 +4,9 @@ export function createUnifiedTemplateModel(input = {}) {
             name: input.meta?.name || 'MiSub',
             source: input.meta?.source || 'builtin',
             target: input.meta?.target || 'clash',
-            ruleLevel: input.meta?.ruleLevel || 'std'
+            ruleLevel: input.meta?.ruleLevel || 'std',
+            // 客户端内核能力标记：仅 Mihomo/Meta 支持节点级 dialer-proxy（链式代理）。
+            isMeta: Boolean(input.meta?.isMeta),
         },
         proxies: Array.isArray(input.proxies) ? input.proxies : [],
         groups: Array.isArray(input.groups) ? input.groups : [],
@@ -16,9 +18,9 @@ export function createUnifiedTemplateModel(input = {}) {
             enableUdp: Boolean(input.settings?.enableUdp),
             customDnsOverride: input.settings?.customDnsOverride || '',
             dnsMode: input.settings?.dnsMode || 'clean',
-            ipv6: input.settings?.ipv6 === true
+            ipv6: input.settings?.ipv6 === true,
         },
-        extras: typeof input.extras === 'object' && input.extras !== null ? input.extras : {}
+        extras: typeof input.extras === 'object' && input.extras !== null ? input.extras : {},
     };
 }
 
